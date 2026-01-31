@@ -1,0 +1,10 @@
+name: Output-workflow
+on: 
+  issues:
+    types: [opened, edited]
+jobs:
+  Context-Output:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get-context-details
+        run: echo "${{toJson(github)}}"
