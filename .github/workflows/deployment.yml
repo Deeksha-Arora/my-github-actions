@@ -1,26 +1,22 @@
 name: Deployment-Workflow
 on: push
 jobs:
-  Lint-Test:
+  Code-Test-Build:
       runs-on: ubuntu-latest
       steps:
-        - name: Run Lint test
+        - name: Code-Checkout
+          uses: actions/checkout@v6
+        - name: Dependencies-Install
+          run: npm ci
+        - name: Lint-Test
           run: npm run lint
-  Test:
-     runs-on: ubuntu-latest
-     needs: Lint-Test
-     steps:
-       - name: Run Tests
-         run: npm run test
-  Build:
-    runs-on: ubuntu-latest
-    needs: Test
-    steps:
-      - name: Run build
-        run: npm run build
+        - name: Tests
+          run: npm run test
+        - name: Code-build
+          run: npm run build
   Deploy:
     runs-on: ubuntu-latest
-    needs: Build
+    needs: Code-Test-Build
     steps:
       - name: Run deployment
         run: echo "Deploying..."
