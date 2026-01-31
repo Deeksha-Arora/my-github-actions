@@ -7,4 +7,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get-context-details
-        run: echo "${{toJson(github.eventgit)}}"
+        run: echo "${{toJson(github.event)}}"
